@@ -7,7 +7,13 @@ import Filter from '../filter/Filter';
 import ContactList from '../contactList/ContactList';
 
 import { setFilter } from '../filter/contactsSlice';
-import { useCreateContactMutation, useDeleteContactMutation, useGetContactsQuery } from '../../api/apiSlice';
+import {
+	useCreateContactMutation,
+	useDeleteContactMutation,
+	useGetContactsQuery,
+} from '../../api/apiSlice';
+
+import app from './App.module.css';
 
 const App = () => {
 	const { filter } = useSelector(state => state.contacts);
@@ -15,9 +21,7 @@ const App = () => {
 
 	const [createContact] = useCreateContactMutation();
 	const [deleteContact] = useDeleteContactMutation();
-	const {
-        data: contacts = [],
-    } = useGetContactsQuery();
+	const { data: contacts = [] } = useGetContactsQuery();
 
 	const onFilter = e => {
 		dispatch(setFilter(e.target.value));
@@ -43,10 +47,10 @@ const App = () => {
 		createContact(newUser).unwrap();
 	};
 
-	const onDeleteContact = useCallback((id) => {
-        deleteContact(id);
-        // eslint-disable-next-line  
-    }, []);
+	const onDeleteContact = useCallback(id => {
+		deleteContact(id);
+		// eslint-disable-next-line
+	}, []);
 
 	const filteredContacts = useMemo(() => {
 		const filteredContacts = contacts.slice();
@@ -64,11 +68,9 @@ const App = () => {
 
 	return (
 		<div>
-			<h1 className="title">Phonebook</h1>
-			<ContactForm
-				onAddContact={onAddContact}
-			/>
-			<h2 className="title">Contacts</h2>
+			<h1 className={app.title}>Phonebook</h1>
+			<ContactForm onAddContact={onAddContact} />
+			<h2 className={app.title}>Contacts</h2>
 			<Filter onFilter={onFilter} />
 			<ContactList
 				filteredContacts={filteredContacts}
