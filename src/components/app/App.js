@@ -27,7 +27,8 @@ const App = () => {
 		dispatch(setFilter(e.target.value));
 	};
 
-	const onAddContact = (name, number) => {
+	const onAddContact = (e, name, number) => {
+		e.preventDefault();
 		if (contacts.filter(contact => contact.name === name).length >= 1) {
 			alert(`${name} is already in contacts`);
 			return;
